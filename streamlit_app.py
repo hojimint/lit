@@ -5,7 +5,7 @@ import json
 import pandas as pd
 import streamlit as st
 file_path = "C:\\Users\hojin\Desktop\gwajea\python\gimal\simple.txt"
-url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=송파구&dataTerm=DAILY&pageNo=1&numOfRows=100&returnType=json&serviceKey=KQRR%2BJLPRITcRv6CvRB1QUxmDQ%2BKmcKWMjK1A19g%2BiHLEbXTpqjWmut5pwHfKkH6O7KfqLSXxEmrLt6Ctooliw%3D%3D"
+url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=송파구&dataTerm=DAILY&pageNo=1&numOfRows=20&returnType=json&serviceKey=KQRR%2BJLPRITcRv6CvRB1QUxmDQ%2BKmcKWMjK1A19g%2BiHLEbXTpqjWmut5pwHfKkH6O7KfqLSXxEmrLt6Ctooliw%3D%3D"
 
 response = requests.get(url)
 
@@ -31,10 +31,12 @@ dataframe = pd.json_normalize(body)
 # print(dataframe['khaiValue'])
 total = dataframe['khaiValue']
 dust = dataframe['pm10Value']
-
-st.dataframe(dust)
-dust.head()
-st.dataframe(dust.head())
-st.write(dust.head())
-
+p1 = pd.concat([total,dust],axis=1)
+st.dataframe(p1)
+p1.head()
+st.dataframe(p1.head())
+st.write(p1.head())
+# print(p1)
+# with open(file_path, 'w') as f:
+#     json.dump(dataframe, f)
 
