@@ -36,10 +36,7 @@ p1 = pd.concat([total,dust],axis=1)
 
 st.dataframe(p1)
 p1.head()
-np.random.seed(0)
-p1 = pd.DataFrame(np.random.randn(100, 3),
-                   index=pd.date_range('1/1/2022', periods=20),
-                   columns=['통합대기수치', '미세먼지']).cumsum()
-p1.tail()
+
+st.line_chatr(p1)
 # with open(file_path, 'w') as f:
 #     json.dump(dataframe, f)
