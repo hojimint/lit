@@ -4,6 +4,7 @@ import pprint
 import json
 import pandas as pd
 import streamlit as st
+import numpy as np
 file_path = "C:\\Users\hojin\Desktop\gwajea\python\gimal\simple.txt"
 url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=파주&dataTerm=DAILY&pageNo=1&numOfRows=20&returnType=json&serviceKey=KQRR%2BJLPRITcRv6CvRB1QUxmDQ%2BKmcKWMjK1A19g%2BiHLEbXTpqjWmut5pwHfKkH6O7KfqLSXxEmrLt6Ctooliw%3D%3D"
 
@@ -32,9 +33,18 @@ dataframe = pd.json_normalize(body)
 total = dataframe['khaiValue']
 dust = dataframe['pm10Value']
 p1 = pd.concat([total,dust],axis=1)
+
 st.dataframe(p1)
 p1.head()
+
+chart_data = pd.p1(
+        np.random.randn(20, 3),
+    columns=['통합대기수치', '미세먼지'])
 # print(p1)
 # with open(file_path, 'w') as f:
 #     json.dump(dataframe, f)
 
+
+
+
+st.line_chart(chart_data)
