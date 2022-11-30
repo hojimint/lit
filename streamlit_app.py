@@ -37,6 +37,9 @@ p1 = pd.concat([total,dust],axis=1)
 st.dataframe(p1)
 p1.head()
 
-st.line_chatr(p1)
+st.bar_chart(p1[ ['khaiValue', 'pm10Value'] ] )
+chart = alt.Chart(p1).mark_circle().encode( x = 'khaiValue', y='pm10Value', color = 'species' )   ##알테어 
+st.altair_chart(chart, use_container_width=True)     #use_container_width=True  가로로 화면에 꽉 채워줌.  
+
 # with open(file_path, 'w') as f:
 #     json.dump(dataframe, f)
