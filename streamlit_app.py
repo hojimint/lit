@@ -1,5 +1,6 @@
 import altair as alt
 import pandas as pd
+import streamlit as st
 
 source = pd.DataFrame({
     'a': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'],
@@ -10,3 +11,4 @@ alt.Chart(source).mark_bar().encode(
     x='a',
     y='b'
 )
+st.altair_chart(chart, use_container_width=True) 
