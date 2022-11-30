@@ -30,6 +30,7 @@ body = json_ob['response']['body']['items']
 dataframe = pd.json_normalize(body)
 # dataframe.index = ['khaiValue', 'pm10Value', 'no2Value', '03Value']
 # print(dataframe['khaiValue'])
+time = dataframe['dataTime']
 total = dataframe['khaiValue']
 dust = dataframe['pm10Value']
 p1 = pd.concat([total],axis=1)
@@ -37,7 +38,7 @@ p1 = pd.concat([total],axis=1)
 # st.dataframe(p1)
 # p1.head()
 
-chart = alt.Chart(p1).mark_bar().encode( x = '시간', y='통합 대기질 수치' ) 
+chart = alt.Chart(p1).mark_bar().encode( x = 'dataTime', y='khaiValue' ) 
 st.altair_chart(chart, use_container_width=True)     #use_container_width=True  가로로 화면에 꽉 채워줌.  
 
 # with open(file_path, 'w') as f:
