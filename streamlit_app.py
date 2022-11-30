@@ -28,7 +28,7 @@ body = json_ob['response']['body']['items']
 # print(body)
 
 # # Dataframe으로 만들기
-dataframe = pd.json_normalize(body)
+dataframe = pd.DataFrame(body)
 # dataframe.index = ['khaiValue', 'pm10Value', 'no2Value', '03Value']
 # print(dataframe['khaiValue'])
 time = dataframe['dataTime']
@@ -36,9 +36,12 @@ total = dataframe['khaiValue']
 dust = dataframe['pm10Value']
 p1 = pd.concat([time,total,dust],axis=1)
 st.dataframe(p1)
-# p1.head()
-chart = alt.Chart(p1).mark_bar().encode( x = 'time', y='total' ) 
-st.altair_chart(chart, use_container_width=True)     #use_container_width=True  가로로 화면에 꽉 채워줌.  
+chart = alt.Chart(p1).mark_bar().encode( 
+    x = 'time',
+    y = 'total' 
+) 
 
+st.altair_chart(chart, use_container_width=True)     #use_container_width=True  가로로 화면에 꽉 채워줌.  
+print(dust)
 # with open(file_path, 'w') as f:
 #     json.dump(dataframe, f)
