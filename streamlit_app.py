@@ -33,7 +33,7 @@ dataframe = pd.json_normalize(body)
 time = dataframe['dataTime']
 total = dataframe['khaiValue']
 dust = dataframe['pm10Value']
-p1 = pd.concat([total],axis=1)
+p1 = pd.concat([time,total],axis=1)
 # ,dust
 # st.dataframe(p1)
 # p1.head()
