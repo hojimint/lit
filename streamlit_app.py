@@ -1,35 +1,44 @@
-import streamlit as st
+#라이브러리 import
+import requests
+import pprint
+import json
 import pandas as pd
-import numpy as np
-	
-st.title('Uber pickups in NYC')
-	
-DATE_COLUMN = 'date/time'
-DATA_URL = ('https://s3-us-west-2.amazonaws.com/'
-              'streamlit-demo-data/uber-raw-data-sep14.csv.gz')
+import streamlit as st
+file_path = "C:\\Users\hojin\Desktop\gwajea\python\gimal\simple.txt"
+url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=송파구&dataTerm=DAILY&pageNo=1&numOfRows=100&returnType=json&serviceKey=KQRR%2BJLPRITcRv6CvRB1QUxmDQ%2BKmcKWMjK1A19g%2BiHLEbXTpqjWmut5pwHfKkH6O7KfqLSXxEmrLt6Ctooliw%3D%3D"
 
-@st.cache
-def load_data(nrows):
-    data = pd.read_csv(DATA_URL, nrows=nrows)
-    lowercase = lambda x: str(x).lower()
-    data.rename(lowercase, axis='columns', inplace=True)
-    data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
-    return data
+response = requests.get(url)
 
-data_load_state = st.text('Loading data...')
-data = load_data(10000)
-data_load_state.text("Done! (using st.cache)")
+contents = response.text
 
-if st.checkbox('Show raw data'):
-    st.subheader('Raw data')
-    st.write(data)
+# 데이터 결과값 예쁘게 출력해주는 코드
+pp = pprint.PrettyPrinter(indent=4)
+# print(pp.pprint(contents))
 
-st.subheader('Number of pickups by hour')
-hist_values = np.histogram(data[DATE_COLUMN].dt.hour, bins=24, range=(0,24))[0]
-st.bar_chart(hist_values)
+## json을 DataFrame으로 변환하기 ##
 
-hour_to_filter = st.slider('hour', 0, 23, 17)
-filtered_data = data[data[DATE_COLUMN].dt.hour == hour_to_filter]
+#문자열을 json으로 변경
+json_ob = json.loads(contents)
+# print(type(json_ob)) #json타입 확인
 
-st.subheader('Map of all pickups at %s:00' % hour_to_filter)
-st.map(filtered_data)
+# 필요한 내용만 꺼내기
+body = json_ob['response']['body']['items']
+# print(body)
+
+# # Dataframe으로 만들기
+dataframe = pd.json_normalize(body)
+# dataframe.index = ['khaiValue', 'pm10Value', 'no2Value', '03Value']
+# print(dataframe['khaiValue'])
+total = dataframe['khaiValue']
+dust = dataframe['pm10Value']
+p1 = pd.concat([total,dust],axis=1)
+st.dataframe(p1)
+p1.head()
+
+st.dataframe(p1.head())
+st.write(p1.head())
+# print(p1)
+
+# with open(file_path, 'w') as f:
+#     json.dump(dataframe, f)
+
