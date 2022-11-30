@@ -37,7 +37,7 @@ p1 = pd.concat([time,total],axis=1)
 # ,dust
 # st.dataframe(p1)
 # p1.head()
-chart = alt.Chart(p1).mark_bar().encode( x = 'time', y='dust' ) 
+chart = alt.Chart(p1).mark_bar().encode( x = 'time', y='total' ) 
 st.altair_chart(chart, use_container_width=True)     #use_container_width=True  가로로 화면에 꽉 채워줌.  
 
 # with open(file_path, 'w') as f:
