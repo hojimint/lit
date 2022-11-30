@@ -31,13 +31,10 @@ dataframe = pd.json_normalize(body)
 # print(dataframe['khaiValue'])
 total = dataframe['khaiValue']
 dust = dataframe['pm10Value']
-# p1 = pd.concat([total,dust],axis=1)
+
 st.dataframe(dust)
 dust.head()
 st.dataframe(dust.head())
 st.write(dust.head())
-# print(p1)
 
-# with open(file_path, 'w') as f:
-#     json.dump(dataframe, f)
 
