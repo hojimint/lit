@@ -36,15 +36,10 @@ p1 = pd.concat([total,dust],axis=1)
 
 st.dataframe(p1)
 p1.head()
-
-chart_data = dust.p1(
-        np.random.randn(20, 3),
-    columns=['통합대기수치', '미세먼지'])
-# print(p1)
+np.random.seed(0)
+p1 = pd.DataFrame(np.random.randn(100, 3),
+                   index=pd.date_range('1/1/2022', periods=20),
+                   columns=['통합대기수치', '미세먼지']).cumsum()
+p1.tail()
 # with open(file_path, 'w') as f:
 #     json.dump(dataframe, f)
-
-
-
-
-st.line_chart(chart_data)
