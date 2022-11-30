@@ -5,6 +5,7 @@ import json
 import pandas as pd
 import streamlit as st
 import numpy as np
+import altair as alt 
 file_path = "C:\\Users\hojin\Desktop\gwajea\python\gimal\simple.txt"
 url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=파주&dataTerm=DAILY&pageNo=1&numOfRows=20&returnType=json&serviceKey=KQRR%2BJLPRITcRv6CvRB1QUxmDQ%2BKmcKWMjK1A19g%2BiHLEbXTpqjWmut5pwHfKkH6O7KfqLSXxEmrLt6Ctooliw%3D%3D"
 
@@ -33,9 +34,8 @@ dataframe = pd.json_normalize(body)
 time = dataframe['dataTime']
 total = dataframe['khaiValue']
 dust = dataframe['pm10Value']
-p1 = pd.concat([time,total],axis=1)
-# ,dust
-# st.dataframe(p1)
+p1 = pd.concat([time,total,dust],axis=1)
+st.dataframe(p1)
 # p1.head()
 chart = alt.Chart(p1).mark_bar().encode( x = 'time', y='total' ) 
 st.altair_chart(chart, use_container_width=True)     #use_container_width=True  가로로 화면에 꽉 채워줌.  
