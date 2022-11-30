@@ -34,8 +34,6 @@ dust = dataframe['pm10Value']
 p1 = pd.concat([total,dust],axis=1)
 st.dataframe(p1)
 p1.head()
-st.dataframe(p1.head())
-st.write(p1.head())
 # print(p1)
 # with open(file_path, 'w') as f:
 #     json.dump(dataframe, f)
