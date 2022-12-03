@@ -35,7 +35,9 @@ time = dataframe['dataTime']
 total = dataframe['khaiValue']
 dust = dataframe['pm10Value']
 p1 = pd.concat([time,total,dust],axis=1)
+st.line_chart(p1.khaiValue)
 st.line_chart(p1.dataTime)
+st.line_chart(p1.pm10Value)
 # chart = alt.Chart(p1).mark_bar().encode( 
 #     x = 'time',
 #     y = 'total' 
