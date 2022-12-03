@@ -35,7 +35,7 @@ total = dataframe.head()['khaiValue']
 dust = dataframe.head()['pm10Value']
 p1 = pd.concat([time,total,dust],axis=1)
 st.write(p1)
-st.line_chart(p1.khaiValue)
+st.line_chart(st.line_chart(p1,x=p1.khaiValue,y=p1.dataTime))
 # st.line_chart(p1.dataTime)
 # st.line_chart(p1.khaiValue)
 st.bar_chart(p1.khaiValue)
