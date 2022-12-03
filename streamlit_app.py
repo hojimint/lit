@@ -5,7 +5,7 @@ import json
 import pandas as pd
 import streamlit as st
 import numpy as np
-import altair as alt 
+import plotly.figure_factory as ff
 file_path = "C:\\Users\hojin\Desktop\gwajea\python\gimal\simple.txt"
 url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=파주&dataTerm=DAILY&pageNo=1&numOfRows=20&returnType=json&serviceKey=KQRR%2BJLPRITcRv6CvRB1QUxmDQ%2BKmcKWMjK1A19g%2BiHLEbXTpqjWmut5pwHfKkH6O7KfqLSXxEmrLt6Ctooliw%3D%3D"
 
@@ -35,11 +35,15 @@ time = dataframe.head()['dataTime']
 total = dataframe.head()['khaiValue']
 dust = dataframe.head()['pm10Value']
 p1 = pd.concat([total,dust],axis=1)
-# p1['dataTime'] = [0, 1, 2, 3, 4]
-st.write(p1)
+hist_data = [total, dust]
+group_labels = ['통합환경수치', '미세먼지농도']
+fig = ff.create_distplot(
+        hist_data, group_labels, bin_size=[10, 60, 150])
+st.plotly_chart(fig, use_container_width=True)
+# st.write(p1)
 # p1=p1.set_index("dataTime")
-st.line_chart(p1)
-st.bar_chart(p1)
+# st.line_chart(p1)
+# st.bar_chart(p1)
 # print(p1)
 # st.line_chart(p1.dataTime)
 # st.line_chart(p1.khaiValue)
