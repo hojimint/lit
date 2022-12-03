@@ -5,6 +5,7 @@ import json
 import pandas as pd
 import streamlit as st
 import numpy as np
+import altair as alt 
 file_path = "C:\\Users\hojin\Desktop\gwajea\python\gimal\simple.txt"
 url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=파주&dataTerm=DAILY&pageNo=1&numOfRows=20&returnType=json&serviceKey=KQRR%2BJLPRITcRv6CvRB1QUxmDQ%2BKmcKWMjK1A19g%2BiHLEbXTpqjWmut5pwHfKkH6O7KfqLSXxEmrLt6Ctooliw%3D%3D"
 
@@ -33,12 +34,14 @@ dataframe = pd.DataFrame(body)
 time = dataframe.head()['dataTime']
 total = dataframe.head()['khaiValue']
 dust = dataframe.head()['pm10Value']
-p1 = pd.concat([time,total,dust],axis=1)
+p1 = pd.concat([time,total],axis=1)
 st.write(p1)
-st.line_chart(st.line_chart(p1,y=p1.khaiValue))
+p1=p1.set_index("dataTime")
+st.line_chart(p1)
+st.bar_chart(p1)
 # st.line_chart(p1.dataTime)
 # st.line_chart(p1.khaiValue)
-st.bar_chart(p1.khaiValue)
+
 # print(p1)
 # with open(file_path, 'w') as f:
 #     json.dump(dataframe, f)
