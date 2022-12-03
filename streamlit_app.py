@@ -31,19 +31,15 @@ body = json_ob['response']['body']['items']
 dataframe = pd.DataFrame(body)
 # dataframe.index = ['khaiValue', 'pm10Value', 'no2Value', '03Value']
 # print(dataframe['khaiValue'])
-time = dataframe['dataTime']
-total = dataframe['khaiValue']
-dust = dataframe['pm10Value']
+time = dataframe.head()['dataTime']
+total = dataframe.head()['khaiValue']
+dust = dataframe.head()['pm10Value']
 p1 = pd.concat([time,total,dust],axis=1)
+st.write(p1)
 st.line_chart(p1.khaiValue)
-st.line_chart(p1.dataTime)
-st.line_chart(p1.pm10Value)
-# chart = alt.Chart(p1).mark_bar().encode( 
-#     x = 'time',
-#     y = 'total' 
-# ) 
+# st.line_chart(p1.dataTime)
+# st.line_chart(p1.khaiValue)
 
-# st.altair_chart(chart, use_container_width=True)     #use_container_width=True  가로로 화면에 꽉 채워줌.  
-print(p1)
+# print(p1)
 # with open(file_path, 'w') as f:
 #     json.dump(dataframe, f)
