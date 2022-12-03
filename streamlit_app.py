@@ -34,19 +34,13 @@ dataframe = pd.DataFrame(body)
 time = dataframe.head()['dataTime']
 total = dataframe.head()['khaiValue']
 dust = dataframe.head()['pm10Value']
-p1 = pd.concat([total,dust],axis=1)
-hist_data = [total, dust]
-group_labels = ['통합환경수치', '미세먼지농도']
-fig = ff.create_distplot(
-        hist_data, group_labels, bin_size=[10, 60, 150])
-st.plotly_chart(fig, use_container_width=True)
-# st.write(p1)
-# p1=p1.set_index("dataTime")
+p1 = pd.concat([time,total],axis=1)
+st.write(p1)
+p1=p1.set_index("dataTime")
 # st.line_chart(p1)
-# st.bar_chart(p1)
+st.bar_chart(p1)
 # print(p1)
-# st.line_chart(p1.dataTime)
-# st.line_chart(p1.khaiValue)
+st.line_chart(p1)
 
 # print(p1)
 # with open(file_path, 'w') as f:
