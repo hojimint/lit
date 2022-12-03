@@ -37,9 +37,9 @@ p1 = pd.concat([time,total],axis=1)
 st.write(p1)
 p1=p1.set_index("dataTime")
 # st.line_chart(p1)
-st.bar_chart(p1,y=0)
+st.bar_chart(p1, width=0, height=0)
 # print(p1)
-st.line_chart(p1,y=0)
+st.line_chart(p1,width=0, height=0)
 
 # print(p1)
 # with open(file_path, 'w') as f:
