@@ -33,8 +33,8 @@ dataframe['dust'] = pd.to_numeric(dataframe['pm10Value'])
 time = dataframe['dataTime']
 total = dataframe['total']
 dust = dataframe['dust']
-p1 = pd.concat([time,total,dust],axis=1)
-st.bar_chart(p1[ ['khaiValue', 'pm10Value'] ] )
+# p1 = pd.concat([time,total,dust],axis=1)
+# st.bar_chart(p1[ ['khaiValue', 'pm10Value'] ] )
 st.write(total)
 st.bar_chart(total)
 st.bar_chart(dust)
