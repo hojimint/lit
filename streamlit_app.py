@@ -33,17 +33,16 @@ dataframe = pd.DataFrame(body)
 time = dataframe.head()['dataTime']
 total = dataframe['khaiValue']
 dust = dataframe['pm10Value']
-p1 = pd.concat([time,total],axis=1)
+p1 = pd.concat([time,total,dust],axis=1)
+st.bar_chart(p1[ ['khaiValue', 'pm10Value'] ] )
+# print(total)
 st.write(total)
 # p1=p1.set_index("dataTime")
 # st.line_chart(total)
 # st.line_chart(dust)
 # st.bar_chart(total)
-# st.bar_chart(dust)
-c = alt.Chart(dust).mark_circle().encode(
-    x='a', y='b', size='c', color='c', tooltip=['a', 'b', 'c'])
-st.altair_chart(c, use_container_width=True)
-# print(total)
+# st.bar_chart(dust)           ## bar 차트 그리기
+
 # st.line_chart(p1,width=0, height=0)
 
 # print(p1)
