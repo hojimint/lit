@@ -4,7 +4,7 @@ import pprint
 import json
 import pandas as pd
 import streamlit as st
-import numpy as np
+import altair as alt
 file_path = "C:\\Users\hojin\Desktop\gwajea\python\gimal\simple.txt"
 url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=파주&dataTerm=DAILY&pageNo=1&numOfRows=20&returnType=json&serviceKey=KQRR%2BJLPRITcRv6CvRB1QUxmDQ%2BKmcKWMjK1A19g%2BiHLEbXTpqjWmut5pwHfKkH6O7KfqLSXxEmrLt6Ctooliw%3D%3D"
 
@@ -31,15 +31,18 @@ dataframe = pd.DataFrame(body)
 # dataframe.index = ['khaiValue', 'pm10Value', 'no2Value', '03Value']
 # print(dataframe['khaiValue'])
 time = dataframe.head()['dataTime']
-total = dataframe.head()['khaiValue']
-dust = dataframe.head()['pm10Value']
+total = dataframe['khaiValue']
+dust = dataframe['pm10Value']
 p1 = pd.concat([time,total],axis=1)
 st.write(total)
 # p1=p1.set_index("dataTime")
-st.line_chart(total)
-st.line_chart(dust)
-st.bar_chart(total)
-st.bar_chart(dust)
+# st.line_chart(total)
+# st.line_chart(dust)
+# st.bar_chart(total)
+# st.bar_chart(dust)
+c = alt.Chart(dust).mark_circle().encode(
+    x='a', y='b', size='c', color='c', tooltip=['a', 'b', 'c'])
+st.altair_chart(c, use_container_width=True)
 # print(total)
 # st.line_chart(p1,width=0, height=0)
 
