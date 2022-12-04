@@ -28,20 +28,16 @@ body = json_ob['response']['body']['items']
 
 # # Dataframe으로 만들기
 dataframe = pd.DataFrame(body)
-# dataframe.index = ['khaiValue', 'pm10Value', 'no2Value', '03Value']
-# print(dataframe['khaiValue'])
-time = dataframe.head()['dataTime']
-total = dataframe['khaiValue']
-dust = dataframe['pm10Value']
+dataframe['total'] = pd.to_numeric(dataframe['khaiValue'])
+dataframe['dust'] = pd.to_numeric(dataframe['pm10Value'])
+time = dataframe['dataTime']
+total = dataframe['total']
+dust = dataframe['dust']
 p1 = pd.concat([time,total,dust],axis=1)
 st.bar_chart(p1[ ['khaiValue', 'pm10Value'] ] )
-# print(total)
 st.write(total)
-# p1=p1.set_index("dataTime")
-# st.line_chart(total)
-# st.line_chart(dust)
-# st.bar_chart(total)
-# st.bar_chart(dust)           ## bar 차트 그리기
+st.bar_chart(total)
+st.bar_chart(dust)
 
 # st.line_chart(p1,width=0, height=0)
 
