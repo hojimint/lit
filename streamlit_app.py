@@ -34,12 +34,12 @@ time = dataframe.head()['dataTime']
 total = dataframe.head()['khaiValue']
 dust = dataframe.head()['pm10Value']
 p1 = pd.concat([time,total],axis=1)
-st.write(p1)
-p1=p1.set_index("dataTime")
-# st.line_chart(p1)
-st.bar_chart(p1, width=0, height=0)
-# print(p1)
-st.line_chart(p1,width=0, height=0)
+st.write(total)
+# p1=p1.set_index("dataTime")
+st.line_chart(total)
+# st.bar_chart(p1, width=0, height=0)
+# print(total)
+# st.line_chart(p1,width=0, height=0)
 
 # print(p1)
 # with open(file_path, 'w') as f:
