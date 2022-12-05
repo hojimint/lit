@@ -5,6 +5,9 @@ import json
 import pandas as pd
 import streamlit as st
 import altair as alt
+from PIL import Image
+image = Image.open('RESULT1.jpg')
+image2 = Image.open('RESULT2.jpg')
 file_path = "C:\\Users\hojin\Desktop\gwajea\python\gimal\simple.txt"
 url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=파주&dataTerm=DAILY&pageNo=1&numOfRows=100&returnType=json&serviceKey=KQRR%2BJLPRITcRv6CvRB1QUxmDQ%2BKmcKWMjK1A19g%2BiHLEbXTpqjWmut5pwHfKkH6O7KfqLSXxEmrLt6Ctooliw%3D%3D"
 
@@ -28,19 +31,19 @@ body = json_ob['response']['body']['items']
 
 # # Dataframe으로 만들기
 dataframe = pd.DataFrame(body)
+# # key 값 int으로 만들기
 dataframe['total'] = pd.to_numeric(dataframe['khaiValue'])
 dataframe['dust'] = pd.to_numeric(dataframe['pm10Value'])
 time = dataframe['dataTime']
 total = dataframe['total']
 dust = dataframe['dust']
-# p1 = pd.concat([time,total,dust],axis=1)
-# st.bar_chart(p1[ ['khaiValue', 'pm10Value'] ] )
-st.write(total)
+# # 바차트 올리기
+st.title('공공데이터 분석하기')
+st.header("통합 환경 수치")
 st.bar_chart(total)
+st.image(image)
+st.write()
+st.header("미세먼지")
 st.bar_chart(dust)
-
-# st.line_chart(p1,width=0, height=0)
-
-# print(p1)
-# with open(file_path, 'w') as f:
-#     json.dump(dataframe, f)
+st.image(image2)
+st.write()
