@@ -35,13 +35,6 @@ time = dataframe['dataTime']
 total = dataframe['total']
 dust = dataframe['dust']
 # # 바차트 올리기
-with open('style.css') as f:
-    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-col1, col2, col3 = st.columns(3)
-
-col1.metric("combined environmental figures", total[0])
-col2.metric("Fine Dust", dust[0])
-col3.metric("Time",time[0])
 st.write(total)
 st.bar_chart(total)
 st.bar_chart(dust)
