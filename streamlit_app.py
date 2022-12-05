@@ -6,8 +6,8 @@ import pandas as pd
 import streamlit as st
 import altair as alt
 from PIL import Image
-image = Image.open('RESULT1.jpg')
-image2 = Image.open('RESULT2.jpg')
+image = Image.open('RESULT1.png')
+image2 = Image.open('RESULT2.png')
 file_path = "C:\\Users\hojin\Desktop\gwajea\python\gimal\simple.txt"
 url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=파주&dataTerm=DAILY&pageNo=1&numOfRows=100&returnType=json&serviceKey=KQRR%2BJLPRITcRv6CvRB1QUxmDQ%2BKmcKWMjK1A19g%2BiHLEbXTpqjWmut5pwHfKkH6O7KfqLSXxEmrLt6Ctooliw%3D%3D"
 
