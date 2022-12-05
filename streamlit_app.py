@@ -31,6 +31,8 @@ body = json_ob['response']['body']['items']
 
 # # Dataframe으로 만들기
 dataframe = pd.DataFrame(body)
+
+# # Dataframe으로 만들기
 for i in range(len(dataframe['khaiValue'])):
     if dataframe['khaiValue'][i] == '-':
         dataframe['khaiValue'][i] = '0'
@@ -45,7 +47,7 @@ for i in range(len(dataframe['o3Value'])):
 dataframe['total'] = pd.to_numeric(dataframe['khaiValue'])
 dataframe['dust'] = pd.to_numeric(dataframe['pm10Value'])
 dataframe['o3'] = pd.to_numeric(dataframe['o3Value'])
-o3 = dataframe['o3Value']
+o3 = dataframe['o3']
 total = dataframe['total']
 dust = dataframe['dust']
 
