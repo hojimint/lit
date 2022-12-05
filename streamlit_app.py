@@ -35,16 +35,18 @@ dataframe = pd.DataFrame(body)
 # # key 값 int으로 만들기
 dataframe['total'] = pd.to_numeric(dataframe['khaiValue'])
 dataframe['dust'] = pd.to_numeric(dataframe['pm10Value'])
+dataframe['dataTime'] = pd.to_numeric(dataframe['dataTime'])
 time = dataframe['dataTime']
 total = dataframe['total']
 dust = dataframe['dust']
 # # 바차트 올리기
 st.title('공공데이터 분석하기')
+st.write('파주시의 대기 상태를 실시간으로 불러와 시각화 하고있습니다.')
 st.header("통합 환경 수치")
 st.bar_chart(total)
-st.image(image)
-st.write()
+st.image(image2)
+st.write('0~30ppm이면 좋음 31~80ppm이면 보통 81~150ppm이면 나쁨')
 st.header("미세먼지")
 st.bar_chart(dust)
 st.image(image)
-st.write()
+st.write('0~30ppm이면 좋음 31~80ppm이면 보통 81~150ppm이면 나쁨')
