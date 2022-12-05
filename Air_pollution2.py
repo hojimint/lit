@@ -3,9 +3,10 @@ import requests
 import pprint
 import json
 import pandas as pd
-
+import streamlit as st
+import altair as alt
 file_path = "C:\\Users\hojin\Desktop\gwajea\python\gimal\simple.txt"
-url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=송파구&dataTerm=DAILY&pageNo=1&numOfRows=100&returnType=json&serviceKey=KQRR%2BJLPRITcRv6CvRB1QUxmDQ%2BKmcKWMjK1A19g%2BiHLEbXTpqjWmut5pwHfKkH6O7KfqLSXxEmrLt6Ctooliw%3D%3D"
+url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=파주&dataTerm=DAILY&pageNo=1&numOfRows=100&returnType=json&serviceKey=KQRR%2BJLPRITcRv6CvRB1QUxmDQ%2BKmcKWMjK1A19g%2BiHLEbXTpqjWmut5pwHfKkH6O7KfqLSXxEmrLt6Ctooliw%3D%3D"
 
 response = requests.get(url)
 
@@ -26,17 +27,21 @@ body = json_ob['response']['body']['items']
 # print(body)
 
 # # Dataframe으로 만들기
-dataframe = pd.json_normalize(body)
+dataframe = pd.DataFrame(body)
+# # key 값 int으로 만들기
+dataframe['total'] = pd.to_numeric(dataframe['khaiValue'])
+dataframe['dust'] = pd.to_numeric(dataframe['pm10Value'])
+time = dataframe['dataTime']
+total = dataframe['total']
+dust = dataframe['dust']
+# # 바차트 올리기
+with open('style.css') as f:
+    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+col1, col2, col3 = st.columns(3)
 
-# dataframe.index = ['khaiValue', 'pm10Value', 'no2Value', '03Value']
-# print(dataframe['khaiValue'])
-total = dataframe['khaiValue']
-dust = dataframe['pm10Value']
-p1 = pd.concat([total,dust],axis=1)
-# print(p1)
-st.write(p1)
-# dataframe.to_csv('9.41.csv',encoding='euc-kr')
-# print(dataframe)
-
-# with open(file_path, 'w') as f:
-#     json.dump(dataframe, f)
+col1.metric("combined environmental figures", total[0])
+col2.metric("Fine Dust", dust[0])
+col3.metric("Time",time[0])
+st.write(total)
+st.bar_chart(total)
+st.bar_chart(dust)
