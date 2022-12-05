@@ -34,9 +34,9 @@ dataframe = pd.DataFrame(body)
 # # key 값 int으로 만들기
 dataframe['total'] = pd.to_numeric(dataframe['khaiValue'])
 dataframe['dust'] = pd.to_numeric(dataframe['pm10Value'])
-time = dataframe['dataTime']
-total = dataframe['total']
-dust = dataframe['dust']
+time = dataframe['dataTime'][1]
+total = dataframe['total'][1]
+dust = dataframe['dust'][1]
 # # 바차트 올리기
 st.title('공공데이터 분석하기')
 st.write('한국환경공단_에어코리아_대기오염정보의 통합환경수치와 미세먼지를 불러와 분석을 진행합니다.')
