@@ -47,3 +47,7 @@ st.image(image2)
 st.header("미세먼지")
 st.bar_chart(dust)
 st.image(image)
+c = alt.Chart(total).mark_circle().encode(
+    x='a', y='b', size='c', color='c', tooltip=['a', 'b', 'c'])
+
+st.write(c)
