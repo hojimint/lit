@@ -4,19 +4,19 @@ import pprint
 import json
 import pandas as pd
 import streamlit as st
-import altair as alt
 
 file_path = "C:\\Users\hojin\Desktop\gwajea\python\gimal\simple.txt"
-url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=송파구&dataTerm=DAILY&pageNo=1&numOfRows=100&returnType=json&serviceKey=KQRR%2BJLPRITcRv6CvRB1QUxmDQ%2BKmcKWMjK1A19g%2BiHLEbXTpqjWmut5pwHfKkH6O7KfqLSXxEmrLt6Ctooliw%3D%3D"
+url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=파주&dataTerm=DAILY&pageNo=1&numOfRows=100&returnType=json&serviceKey=KQRR%2BJLPRITcRv6CvRB1QUxmDQ%2BKmcKWMjK1A19g%2BiHLEbXTpqjWmut5pwHfKkH6O7KfqLSXxEmrLt6Ctooliw%3D%3D"
 image = "https://github.com/hojimint/lit/blob/main/RESULT2.PNG?raw=true"
 image2 ="https://github.com/hojimint/lit/blob/main/RESULT1.PNG?raw=true"
+image3 ="https://github.com/hojimint/lit/blob/main/RESULT3.PNG?raw=true"
 
 response = requests.get(url)
 
 contents = response.text
 
-# 데이터 결과값 예쁘게 출력해주는 코드
-pp = pprint.PrettyPrinter(indent=4)
+# # 데이터 결과값 예쁘게 출력해주는 코드
+# pp = pprint.PrettyPrinter(indent=4)
 # print(pp.pprint(contents))
 
 ## json을 DataFrame으로 변환하기 ##
@@ -31,13 +31,24 @@ body = json_ob['response']['body']['items']
 
 # # Dataframe으로 만들기
 dataframe = pd.DataFrame(body)
+for i in range(len(dataframe['khaiValue'])):
+    if dataframe['khaiValue'][i] == '-':
+        dataframe['khaiValue'][i] = '0'
+for i in range(len(dataframe['pm10Value'])):
+    if dataframe['pm10Value'][i] == '-':
+        dataframe['pm10Value'][i] = '0'      
+for i in range(len(dataframe['o3Value'])):
+    if dataframe['o3Value'][i] == '-':
+        dataframe['o3Value'][i] = '0'     
+
 # # key 값 int으로 만들기
 dataframe['total'] = pd.to_numeric(dataframe['khaiValue'])
 dataframe['dust'] = pd.to_numeric(dataframe['pm10Value'])
-dataframe['O3'] = pd.to_numeric(dataframe['o3Value'])
+dataframe['o3'] = pd.to_numeric(dataframe['o3Value'])
 o3 = dataframe['o3Value']
 total = dataframe['total']
 dust = dataframe['dust']
+
 # # 바차트 올리기
 st.title('공공데이터 분석하기')
 st.write('한국환경공단_에어코리아_대기오염정보의 통합환경수치와 미세먼지를 불러와 분석을 진행합니다.')
@@ -49,5 +60,5 @@ st.header("미세먼지")
 st.bar_chart(dust)
 st.image(image)
 st.header("o3")
-st.bar_chart(dust)
-st.image(image)
+st.bar_chart(o3)
+st.image(image3)
