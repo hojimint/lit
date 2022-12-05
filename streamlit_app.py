@@ -6,10 +6,11 @@ import pandas as pd
 import streamlit as st
 import altair as alt
 from PIL import Image
-image = Image.open('/app/lit/RESULT1.png')
-image2 = Image.open('/app/lit/RESULT2.png')
+
 file_path = "C:\\Users\hojin\Desktop\gwajea\python\gimal\simple.txt"
 url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=파주&dataTerm=DAILY&pageNo=1&numOfRows=100&returnType=json&serviceKey=KQRR%2BJLPRITcRv6CvRB1QUxmDQ%2BKmcKWMjK1A19g%2BiHLEbXTpqjWmut5pwHfKkH6O7KfqLSXxEmrLt6Ctooliw%3D%3D"
+image = "https://github.com/hojimint/lit/blob/main/RESULT2.PNG?raw=true"
+image2 ="https://github.com/hojimint/lit/blob/main/RESULT1.PNG?raw=true"
 
 response = requests.get(url)
 
@@ -41,9 +42,9 @@ dust = dataframe['dust']
 st.title('공공데이터 분석하기')
 st.header("통합 환경 수치")
 st.bar_chart(total)
-st.image(image)
+st.image(image, caption= 'logo', width=350)
 st.write()
 st.header("미세먼지")
 st.bar_chart(dust)
-st.image(image2)
+st.image(image2, caption= 'logo', width=350)
 st.write()
